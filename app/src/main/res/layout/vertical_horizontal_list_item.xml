@@ -41,6 +41,18 @@
                 The dog's name
                 The dog's age
                 The dog's hobbies-->
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/picture"
+                android:layout_width="match_parent"
+                android:layout_height="194dp"
+                android:scaleType="centerCrop"/>
+
+        </GridLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
