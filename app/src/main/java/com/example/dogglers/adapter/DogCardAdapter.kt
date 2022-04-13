@@ -70,19 +70,19 @@ class DogCardAdapter(
         val adapterLayout = LayoutInflater.from(parent.context)
             .inflate(thisLayout, parent, false)
 
-        val functionAdapter = LayoutInflater.from(parent.context)
+        /*val functionAdapter = LayoutInflater.from(parent.context)
             .inflate({ _: Int ->
                 if(viewType == Layout.GRID){
                     R.layout.grid_list_item
                 } else{
                     R.layout.vertical_horizontal_list_item
                 }
-            }.toString().toInt(), parent, false)
+            }.toString().toInt(), parent, false)*/
 
         return DogCardViewHolder(adapterLayout)
     }
 
-    override fun getItemCount(): Int = 0 // TODO: return the size of the data set instead of 0
+    override fun getItemCount(): Int = dogList.size // TODO: return the size of the data set instead of 0
 
     override fun onBindViewHolder(holder: DogCardAdapter.DogCardViewHolder, position: Int) {
         // TODO: Get the data at the current position
@@ -94,5 +94,11 @@ class DogCardAdapter(
         //  R.string.dog_hobbies string constant.
         //  Passing an argument to the string resource looks like:
         //  resources?.getString(R.string.dog_hobbies, dog.hobbies)
+
+        val item = dogList[position]
+        holder.imageView.setImageResource(item.imageResourceId)
+        holder.dogName.text = item.name
+        holder.dogAge.text = resources?.getString(R.string.dog_age, item.age)
+        holder.dogHobby.text = resources?.getString(R.string.dog_hobbies, item.hobbies)
     }
 }
