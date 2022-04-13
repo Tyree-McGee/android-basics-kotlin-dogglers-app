@@ -16,9 +16,17 @@
 package com.example.dogglers.adapter
 
 import android.content.Context
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dogglers.R
+import com.example.dogglers.const.Layout
+import com.example.dogglers.data.DataSource
+import com.example.dogglers.model.Dog
 
 /**
  * Adapter to inflate the appropriate list item layout and populate the view with information
@@ -30,12 +38,18 @@ class DogCardAdapter(
 ): RecyclerView.Adapter<DogCardAdapter.DogCardViewHolder>() {
 
     // TODO: Initialize the data using the List found in data/DataSource
+    val dogList = DataSource.dogs
 
     /**
      * Initialize view elements
      */
     class DogCardViewHolder(view: View?): RecyclerView.ViewHolder(view!!) {
         // TODO: Declare and initialize all of the list item UI components
+        val imageView: ImageView = view!!.findViewById(R.id.picture)
+        val dogName: TextView = view!!.findViewById(R.id.dog_name)
+        val dogAge: TextView = view!!.findViewById(R.id.dog_age)
+        val dogHobby: TextView = view!!.findViewById(R.id.dog_hobby)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DogCardViewHolder {
@@ -47,12 +61,30 @@ class DogCardAdapter(
 
         // TODO: Null should not be passed into the view holder. This should be updated to reflect
         //  the inflated layout.
-        return DogCardViewHolder(null)
+
+        val thisLayout = if(viewType == Layout.GRID){
+            R.layout.grid_list_item
+        } else{
+            R.layout.vertical_horizontal_list_item
+        }
+        val adapterLayout = LayoutInflater.from(parent.context)
+            .inflate(thisLayout, parent, false)
+
+        val functionAdapter = LayoutInflater.from(parent.context)
+            .inflate({ _: Int ->
+                if(viewType == Layout.GRID){
+                    R.layout.grid_list_item
+                } else{
+                    R.layout.vertical_horizontal_list_item
+                }
+            }.toString().toInt(), parent, false)
+
+        return DogCardViewHolder(adapterLayout)
     }
 
     override fun getItemCount(): Int = 0 // TODO: return the size of the data set instead of 0
 
-    override fun onBindViewHolder(holder: DogCardViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DogCardAdapter.DogCardViewHolder, position: Int) {
         // TODO: Get the data at the current position
         // TODO: Set the image resource for the current dog
         // TODO: Set the text for the current dog's name
